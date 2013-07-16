@@ -2,30 +2,30 @@ import sys
 from sys import path
 import os
 import cherrypy
-import webserver_config
-import RPi.GPIO as GPIO
 import time
 
 path.insert( 0, 'drivers')
+path.insert( 0, 'config')
 from DriverMysql import DriverMysql
 from DriverGPIO import DriverGPIO
 
+from webserver_config import settings
+
 mysql = DriverMysql()
 gpio = DriverGPIO()
-cherrypy.config.update( webserver_config.settings )
+cherrypy.config.update( settings )
 
 class Root:
     def index( self ):
-        pump_on = gpio.pump_toggle()
+        #pump_on = gpio.pump_toggle()
         #print 'The current state of pin 18 is : %s' % str( GPIO.input( led ) )
-        return pump_on
+        
+        source  = 'blank';
+        return source
     index.exposed = True
 
     def pump( self  ):
-        GPIO.setmode(GPIO.BCM)
-        led = 18
-        GPIO.setup(led, GPIO.OUT)
-        GPIO.output( led, False )        
+        gpio.pump_toggle()
         return 'this is a different page'
     pump.exposed = True
 

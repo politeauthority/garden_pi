@@ -1,4 +1,7 @@
-#Config
+#Web Server Config FIle
+
+import os
+import string
 import cherrypy
 
 settings = { 
@@ -12,7 +15,8 @@ settings = {
     'server.log_file': "",
     'server.reverse_dns': False,
     'server.thread_pool': 40,
-    'server.environment': "development"
+    'server.environment': "development",
+#    'tools.mako.directories' : [os.path.join(root_dir,'templates')],
  },
 '/': {
  'request.dispatch': cherrypy.dispatch.MethodDispatcher(),

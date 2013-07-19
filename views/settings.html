@@ -2,10 +2,18 @@
   
 
   <div class="span6 offset3">
-    <h4>Garden Pi Settings</h4>
-    <ul>
-      <li> {{ d['weather_current_indoor'][1] }}F </li>
-    </ul>
+    <h3>System Settings</h3>
+    <form action="/form" method="POST">
+      <ul>
+        {% for option in d['settings'] %}
+          <li class="row">
+	    <span class="span4">{{ option[1] }}</span>
+	    <span class="span8"><input type="text" class="input input-large" value="{{ option[2] }}"></span>
+	  </li>
+        {% endfor %}
+	<li><input class="btn btn-primary" value="Update" type="submit"></li>
+      </ul>
+    </form>
   </div>
 
 

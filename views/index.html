@@ -4,10 +4,15 @@
     <link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" type="text/css" href="/css/default.css">
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="/libs/jQuery/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/libs/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/pagehandler.js"></script>
-  </head>
+    <script type="tex/javascript">
+      google.load('visualization', '1.0', {'packages':['corechart']});
+    </script>
+ </head>
   <body>
     
     <div class="navbar navbar-fixed-top">
@@ -23,6 +28,7 @@
             <ul class="nav">
               <li class="active"><a class="garden-page" href="/dashboard">Dashboard</a></li>
               <li><a class="garden-page" href="/weather">Weather</a></li>
+              <li><a class="garden-page" href="/users">Users</a></li>
               <li><a class="garden-page" href="/settings">Settings</a></li>                           
             </ul>
           </div><!--/.nav-collapse -->
@@ -36,8 +42,8 @@
         <div class="span12">
   	       <h1>Garden Pi</h1>
   	       <h2>Temperature / Humidity</h2>
-  	       <p>{{ target[1] }}F at {{target[2]}}</p>
-  	       <p>Reading taken at {{ target[3] }}</p>
+  	       <p>{{ d[1] }}F at {{d[2]}}%</p>
+  	       <p>Reading taken at {{ d[3] }}</p>
   	       <br />
   	       <a class="btn btn-primary garden-page" href="/pump">Next</a>
         </div>

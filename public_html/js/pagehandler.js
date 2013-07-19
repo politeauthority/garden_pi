@@ -16,7 +16,7 @@ $(document).ready( function(){
     } );
   
     $.ajax({
-      url: url
+	url: url,
     }).done( function( html ) {
       html    = $( html );
       html.addClass( 'stage_next' );

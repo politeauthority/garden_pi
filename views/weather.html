@@ -1,5 +1,36 @@
 <div class="row-fluid">
   
+  <script type="text/javascript">
+    // Load the Visualization API and the piechart package.
+
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+      // Create the data table.
+      var data = new google.visualization.arrayToDataTable([
+        ['Date', 'Temp', 'Humidity'],
+        {% for data in d['weather_stats_indoor'] %}
+          ['{{ data[3] }}', {{ data[1] }}, {{ data[2] }}],
+        {% endfor %}
+      ]);
+
+      // Set chart options
+      var options = {
+        'title':'How Much Pizza I Ate Last Night',
+        'width':650,
+        'height':350
+      };
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  </script>
 
   <div class="span3">
     <h4>Current Conditions</h4>
@@ -9,9 +40,10 @@
   </div>
   
   <div class="span9">
+    <div id="chart_div"></div>
     <ul>
       <li>This should be a graph</li>
-      <li>{{  d['weather_stats_indoor']  }}</li>
+      <li>{  d['weather_stats_indoor']  }</li>
       <li>2</li>
       <li>3</li>
     </ul>

@@ -1,6 +1,8 @@
-h2{
-    color: red;
+#move_container{
+  margin-top: 80px;
 }
-body{
-    background-color: red;
+
+.stage_next{
+    position: relative;
+    top: -1000px;
 }

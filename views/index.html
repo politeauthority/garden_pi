@@ -1,24 +1,49 @@
 <html>
   <head>
     <title>Garden Pi</title>
-    <link rel="stylesheet" type="text/css" href="/css/default.css">
     <link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/default.css">
     <script type="text/javascript" src="/libs/jQuery/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/pagehandler.js"></script>
   </head>
   <body>
-
-    <div class="container-fluid">
-      <div class="row-fluid">
-	<div class="span12">
-	  <h1>Garden Pi</h1>
-	  <h2>Temperature / Humidity</h2>
-	  <p>{{ target[1] }}F at {{target[2]}}</p>
-	  <p>Reading taken at {{ target[3] }}
-	</div>
+    
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" class="garden-page">Garden Pi</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a class="garden-page" href="/dashboard">Dashboard</a></li>
+              <li><a class="garden-page" href="/weather">Weather</a></li>
+              <li><a class="garden-page" href="/settings">Settings</a></li>                           
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
       </div>
     </div>
+
+    <div id="move_container" class="container-fluid">
+
+      <div class="row-fluid move_box">
+        <div class="span12">
+  	       <h1>Garden Pi</h1>
+  	       <h2>Temperature / Humidity</h2>
+  	       <p>{{ target[1] }}F at {{target[2]}}</p>
+  	       <p>Reading taken at {{ target[3] }}</p>
+  	       <br />
+  	       <a class="btn btn-primary garden-page" href="/pump">Next</a>
+        </div>
+      </div><!-- end row -->
+
+    </div><!-- end container -->
 
   </body>
 </html>

@@ -9,17 +9,21 @@ from MVC import MVC
 MVC = MVC()
 # End file header
 
-
+import time
 Mysql = MVC.loadDriver('Mysql')
 
 class ModelWeather( object ):
 
-    def get_current_indoor( self ):
-        last = Mysql.ex( "SELECT * FROM garden.weather_indoor ORDER BY `id` DESC LIMIT 1;" )
-        return last[0]
+  def get_current_indoor( self ):
+    last = Mysql.ex( "SELECT * FROM garden.weather_indoor ORDER BY `id` DESC LIMIT 1;" )
+    return last[0]
 
-    def get_stats_indoor( self, seconds_back = 86400 ):
-        stats = Mysql.ex( "SELECT * FROM garden.weather_indoor" )
-        return stats
+  def get_stats_indoor( self, seconds_back = 86400 ):
+    from datetime import date, datetime, time, timedelta
+    dt = datetime.now() - timedelta( seconds = seconds_back )
+    sql = "SELECT * FROM garden.weather_indoor WHERE `date` > '%s' ORDER BY `id` DESC;" % dt
+    stats = Mysql.ex( sql )
+    return stats
 
 # End File: models/ModelWeather.py
+                          

@@ -16,7 +16,8 @@ class ModelWeather( object ):
 
   def get_current_indoor( self ):
     last = Mysql.ex( "SELECT * FROM %s.weather_indoor ORDER BY `id` DESC LIMIT 1;" % MVC.db['name']  )
-    return last[0]
+    if last:
+      return last[0]
 
   def get_current_outdoor( self ):
     last = Mysql.ex( "SELECT * FROM %s.weather_outdoor ORDER BY `id` DESC LIMIT 1;" % MVC.db['name']  )

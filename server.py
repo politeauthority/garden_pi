@@ -17,20 +17,19 @@ from jinja2 import Environment, FileSystemLoader
 path.insert( 1, 'config')
 from webserver_config import settings
 
-Gpio  = MVC.loadDriver( 'GPIO' )
-Weather = MVC.loadModel( 'Weather' )
-
 env = Environment( loader=FileSystemLoader('views') )
 
 class Root:
     
   def index( self ):
+    Weather = MVC.loadModel('Weather')
     weather = Weather.get_current_indoor()
     view = env.get_template('index.html')
     return view.render( d = weather )
   index.exposed = True
 
   def dashboard( self ):
+    Weather = MVC.loadModel('Weather')
     tpl_args = {
       'weather_indoor' : Weather.get_current_indoor()
     }
@@ -39,6 +38,7 @@ class Root:
   dashboard.exposed = True
 
   def weather( self, *args ):
+    Weather = MVC.loadModel('Weather')
     if args and args[0] == 'chart':
       tpl_args = {
         'weather_current_indoor' : Weather.get_current_indoor(),
@@ -61,6 +61,7 @@ class Root:
   users.exposed = True
 
   def settings( self, *boom ):
+    Weather  = MVC.loadModel('Weather')
     Settings = MVC.loadHelper( 'Settings' )
     #Settings.update( 'url', 'http://www.somewhere.com' )
     tpl_args = {

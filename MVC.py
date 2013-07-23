@@ -9,9 +9,10 @@ import os
 class MVC( object ):
 
   def __init__( self ):
-    self.garden_dir = os.path.abspath( os.path.dirname(__file__) ) + '/'
-    self.logging    = True
-    self.db         = {
+    self.garden_dir   = os.path.abspath( os.path.dirname(__file__) ) + '/'
+    self.logging      = True
+    self.raspberry_pi = False
+    self.db           = {
       'host' : 'localhost',
       'name' : 'garden',
       'user' : 'root',
@@ -38,3 +39,5 @@ class MVC( object ):
     __import__( helper_name )
     helper = getattr( sys.modules[ "%s" % helper_name ], "%s" % helper_name )()
     return helper
+
+# Endfile: MVC.py

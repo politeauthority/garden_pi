@@ -32,5 +32,20 @@ class HelperSettings( object ):
   def get_options( self ):
     options = Mysql.ex( "SELECT * FROM %s.%s;" % ( MVC.db['name'], self.table_name ) )
     return options
+  
+  def get_option( self, meta_key, bool = False ):
+    options = Mysql.ex( "SELECT * FROM %s.%s WHERE meta_key = '%s';" % ( MVC.db['name'], self.table_name, meta_key ) )
+    try:
+      options[0]
+    except Exception:
+      print Exception
+
+    if bool:
+      if options[0] == '1':
+        return True
+      elif options[0] == '0':
+        return False
+    else:
+      return options[0][2]
 
 # End File: helpers/HelperSettings.py

@@ -47,7 +47,9 @@ class Root:
     else:
       tpl_args = {
         'weather_current_indoor' : Weather.get_current_indoor(),
-        'weather_stats_indoor'   : ''
+        'weather_stats_indoor'   : Weather.get_stats_indoor(),
+        'weather_min_max'        : Weather.get_min_max(),
+        'weather_current_outdoor': Weather.get_current_outdoor(),
       }
     view = env.get_template('weather.html')
     return view.render( d = tpl_args )

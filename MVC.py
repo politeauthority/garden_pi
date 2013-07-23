@@ -1,5 +1,7 @@
 #!/usr/bin/python
-# This is the GPIO class wrapper for unified communication with the GPIO chipset
+# Model View Controller Class
+# A relativly simple class to help connect and unify the Garden Pi web and hardware aspects
+
 import sys
 from sys import path
 import os
@@ -8,6 +10,7 @@ class MVC( object ):
 
   def __init__( self ):
     self.garden_dir = os.path.abspath( os.path.dirname(__file__) ) + '/'
+    self.logging    = True
     self.db         = {
       'host' : 'localhost',
       'name' : 'garden',

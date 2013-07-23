@@ -35,11 +35,26 @@
   <div class="span3">
     <h4>Current Conditions</h4>
     <ul>
-      <li> {{ d['weather_current_indoor'][1] }}F </li>
+      <li> {{ d['weather_current_indoor'][1] }}&deg;F </li>
+      <li> {{ d['weather_current_indoor'][2] }}% </li>
+    </ul>
+    <ul>
+      <li> {{ d['weather_current_outdoor'][1] }}&deg;F </li>
+      <li> {{ d['weather_current_outdoor'][2] }}&deg;F Feels like </li>
+      <li> {{ d['weather_current_outdoor'][3] }}% </li>      
+    </ul>
+    <h4>Stats Last 24 Hours</h4>
+    <ul>
+      <li>Temp Min {{ d['weather_min_max']['temp_min'] }}&deg;F</li>
+      <li>Temp Avg {{ d['weather_min_max']['temp_avg'] }}&deg;F</li>
+      <li>Temp Max {{ d['weather_min_max']['temp_max'] }}&deg;F</li>
+      <li>Humidity Min {{ d['weather_min_max']['humidity_min'] }}%</li>
+      <li>Humidty Avg {{ d['weather_min_max']['humidity_avg'] }}%</li>
+      <li>Humidty Max {{ d['weather_min_max']['humidity_max'] }}%</li>
     </ul>
   </div>
   
-  <div class="span9">
+  <div class="span8">
     <div id="chart_div"></div>
     <ul>
       <li>This should be a graph</li>

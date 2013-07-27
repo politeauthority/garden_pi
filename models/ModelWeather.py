@@ -37,6 +37,17 @@ class ModelWeather( object ):
     stats = Mysql.ex( sql )
     return stats
 
+  def get_stats_chart( self, seconds_back = 86400 ):
+    from datetime import date, datetime, time, timedelta
+    dt = datetime.now() - timedelta( seconds = seconds_back )
+    
+    # sql = "SELECT * FROM garden.weather_indoor WHERE `date` > '%s' ORDER BY `id` DESC;" % dt
+    # indoor = Mysql.ex( sql )
+
+    sql = "SELECT * FROM garden.weather_outdoor WHERE `date` > '%s' ORDER BY `id` DESC;" % dt
+    outdoor = Mysql.ex( sql )
+
+    return outdoor
 
   def get_min_max( self, seconds_back = 86400 ):
     from datetime import date, datetime, time, timedelta
@@ -59,5 +70,6 @@ class ModelWeather( object ):
     }
     return results
 
+
+
 # End File: models/ModelWeather.py
-                          

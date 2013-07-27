@@ -37,23 +37,26 @@ class Root:
     return view.render( d = tpl_args )
   dashboard.exposed = True
 
-  def weather( self, *args ):
+  def weather( self ):
     Weather = MVC.loadModel('Weather')
-    if args and args[0] == 'chart':
-      tpl_args = {
-        'weather_current_indoor' : Weather.get_current_indoor(),
-        'weather_stats_indoor'   : Weather.get_stats_indoor()
-        }
-    else:
-      tpl_args = {
-        'weather_current_indoor' : Weather.get_current_indoor(),
-        'weather_stats_indoor'   : Weather.get_stats_indoor(),
-        'weather_min_max'        : Weather.get_min_max(),
-        'weather_current_outdoor': Weather.get_current_outdoor(),
-      }
+    tpl_args = {
+      'weather_current_indoor' : Weather.get_current_indoor(),
+      'weather_min_max'        : Weather.get_min_max(),
+      'weather_current_outdoor': Weather.get_current_outdoor(),
+    }
     view = env.get_template('weather.html')
     return view.render( d = tpl_args )
   weather.exposed = True
+
+  def chart( self ):
+    Weather = MVC.loadModel('Weather')
+    tpl_args = {
+      'weather_stats_indoor'   : Weather.get_stats_indoor( 86400 ),
+      'weather_stats_outdoor'  : Weather.get_stats_chart( 86400 ),
+    }
+    view = env.get_template('chart.html')
+    return view.render( d = tpl_args )
+  chart.exposed = True
 
   def users( self ):
     view = env.get_template('users.html')
@@ -76,13 +79,20 @@ class Root:
     return request
   form.exposed = True
 
+  def test( self ):
+    Weather = MVC.loadModel('Weather')
+    return str( Weather.get_stats_chart() )
+  test.exposed = True
+
 
 root = Root()
-root.weather   = Root().weather()
-root.dashboard = Root().dashboard()
-root.settings  = Root().settings()
-root.users     = Root().users()
-root.form      = Root().form()
+root.dashboard     = Root().dashboard()
+root.weather       = Root().weather()
+root.chart         = Root().chart()
+root.settings      = Root().settings()
+root.users         = Root().users()
+root.form          = Root().form()
+root.test          = Root().test()
 cherrypy.quickstart(  Root(),  config = settings )
 
 # End File: server.py

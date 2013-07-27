@@ -40,3 +40,5 @@ class DriverWeatherUnderAPI( object ):
       'date'     : time.strftime("%Y-%m-%d %H:%M:%S"),
     }
     Mysql.insert( 'weather_outdoor', info )
+
+# End File: driver/DriverWeatherUnderAPI.py

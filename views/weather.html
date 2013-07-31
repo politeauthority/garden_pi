@@ -5,34 +5,34 @@
       <h4>Current Conditions</h4>
       <ul class="pull-left">
         <li>Indoor</li>
-        <li>{{ d['weather_current_indoor'][1] }}&deg;F </li>
-        <li>{{ d['weather_current_indoor'][2] }}% </li>
+        <li>{{ d['weather_current'][1] }} &deg;F at {{ d['weather_current'][2] }}%</li>
       </ul>
       <ul class="pull-right"> 
         <li>Outdoor</li>
-        <li>
-
-          {{ d['weather_current_outdoor'][1] }}&deg;F
-
-          {% if d['weather_current_outdoor'][2] != d['weather_current_outdoor'][1] %}
-            {{ d['weather_current_outdoor'][2] }}&deg;F Feels like
-          {% endif %}
-
-        <li>{{ d['weather_current_outdoor'][3] }}% </li> 
+        <li>{{ d['weather_current'][3] }} &deg;F at {{ d['weather_current'][5] }}%</li>
       </ul>
     </div>
 
 
 
     <h4>Stats Last 24 Hours</h4>
-    <ul>
-      <li>Temp Min {{ d['weather_min_max']['temp_min'] }}&deg;F</li>
-      <li>Temp Avg {{ d['weather_min_max']['temp_avg'] }}&deg;F</li>
-      <li>Temp Max {{ d['weather_min_max']['temp_max'] }}&deg;F</li>
-      <li>Humidity Min {{ d['weather_min_max']['humidity_min'] }}%</li>
-      <li>Humidty Avg {{ d['weather_min_max']['humidity_avg'] }}%</li>
-      <li>Humidty Max {{ d['weather_min_max']['humidity_max'] }}%</li>
+    <ul class="pull-left">
+      <li>Indoor</li>
+      <li>Temp Min {{ d['weather_min_max']['indoor_temp_min'] }}&deg;F</li>
+      <li>Temp Avg {{ d['weather_min_max']['indoor_temp_avg'] }}&deg;F</li>
+      <li>Temp Max {{ d['weather_min_max']['indoor_temp_max'] }}&deg;F</li>
+      <li>Humidity Min {{ d['weather_min_max']['indoor_humidity_min'] }}%</li>
+      <li>Humidty Avg {{ d['weather_min_max']['indoor_humidity_avg'] }}%</li>
+      <li>Humidty Max {{ d['weather_min_max']['indoor_humidity_max'] }}%</li>
     </ul>
+    <ul class="pull-right">
+      <li>Outdoor</li>
+      <li>Temp Min {{ d['weather_min_max']['outdoor_temp_min'] }}&deg;F</li>
+      <li>Temp Avg {{ d['weather_min_max']['outdoor_temp_avg'] }}&deg;F</li>
+      <li>Temp Max {{ d['weather_min_max']['outdoor_temp_max'] }}&deg;F</li>
+      <li>Humidity Min {{ d['weather_min_max']['outdoor_humidity_min'] }}%</li>
+      <li>Humidty Avg {{ d['weather_min_max']['outdoor_humidity_avg'] }}%</li>
+      <li>Humidty Max {{ d['weather_min_max']['outdoor_humidity_max'] }}%</li>
   </div>
   
   <div class="span8">

@@ -15,10 +15,12 @@ import prowlpy
 
 class DriverProwl( object ):
 
-    def send( self, apikey, subject, message, priority ):
-        prowl = prowlpy.Prowl( apikey )
-        try:
-            prowl.add( 'Garden Pi', subject, message, 1, None, "http://www.prowlapp.com/")
-            print 'Success'
-        except Exception,msg:
-            print msg
+  def send( self, apikey, subject, message, priority ):
+    prowl = prowlpy.Prowl( apikey )
+    try:
+      prowl.add( 'Garden Pi', subject, message, 1, None, "http://www.prowlapp.com/")
+      print 'Success'
+    except Exception,msg:
+      print msg
+
+# End File: driver/DriverProwl.py

@@ -1,5 +1,4 @@
-#!/usr/bin/python
-                                                                                                 
+#!/usr/bin/python                                                                                                
 # Main Web Server application file  
 # 
 
@@ -23,7 +22,7 @@ class Root:
     
   def index( self ):
     Weather = MVC.loadModel('Weather')
-    weather = Weather.get_current_indoor()
+    weather = Weather.get_current()
     view = env.get_template('index.html')
     return view.render( d = weather )
   index.exposed = True
@@ -31,7 +30,7 @@ class Root:
   def dashboard( self ):
     Weather = MVC.loadModel('Weather')
     tpl_args = {
-      'weather_indoor' : Weather.get_current_indoor()
+      'weather_indoor' : Weather.get_current()
     }
     view = env.get_template('index.html')
     return view.render( d = tpl_args )
@@ -40,28 +39,27 @@ class Root:
   def weather( self ):
     Weather = MVC.loadModel('Weather')
     tpl_args = {
-      'weather_current_indoor' : Weather.get_current_indoor(),
-      'weather_min_max'        : Weather.get_min_max(),
-      'weather_current_outdoor': Weather.get_current_outdoor(),
+      'weather_current' : Weather.get_current(),
+      'weather_min_max' : Weather.get_min_max(),
     }
     view = env.get_template('weather.html')
     return view.render( d = tpl_args )
   weather.exposed = True
 
+  def water( self ):
+    test = 'something'
+    view = env.get_template('water.html')    
+    return view.render( )
+  water.exposed = True
+
   def chart( self ):
     Weather = MVC.loadModel('Weather')
     tpl_args = {
-      'weather_stats_indoor'   : Weather.get_stats_indoor( 86400 ),
-      'weather_stats_outdoor'  : Weather.get_stats_chart( 86400 ),
+      'weather_stats'   : Weather.get_stats( )
     }
     view = env.get_template('chart.html')
     return view.render( d = tpl_args )
   chart.exposed = True
-
-  def users( self ):
-    view = env.get_template('users.html')
-    return view.render()
-  users.exposed = True
 
   def settings( self, *boom ):
     Weather  = MVC.loadModel('Weather')
@@ -74,25 +72,35 @@ class Root:
     return view.render( d = tpl_args )
   settings.exposed = True
 
-  def form( self, *request):
-    print request
-    return request
-  form.exposed = True
+  def settings_update( self, *args, **kwargs ):
+    if kwargs:
+      Settings = MVC.loadHelper( 'Settings' )
+      Settings.bulk_update( kwargs )
+    cherrypy.InternalRedirect('/')
+  settings_update.exposed = True
+
+  def settings_users( self ):
+    view = env.get_template('users.html')
+    return view.render()
+  settings_users.exposed = True
+
 
   def test( self ):
     Weather = MVC.loadModel('Weather')
-    return str( Weather.get_stats_chart() )
+    return str( 'hey' )
   test.exposed = True
 
 
 root = Root()
-root.dashboard     = Root().dashboard()
-root.weather       = Root().weather()
-root.chart         = Root().chart()
-root.settings      = Root().settings()
-root.users         = Root().users()
-root.form          = Root().form()
-root.test          = Root().test()
+root.dashboard       = Root().dashboard()
+root.weather         = Root().weather()
+root.water           = Root().water()
+root.settings        = Root().settings()
+root.settings_update = Root().settings_update()
+root.settings_users  = Root().settings_users()
+root.chart           = Root().chart()
+
+root.test            = Root().test()
 cherrypy.quickstart(  Root(),  config = settings )
 
 # End File: server.py

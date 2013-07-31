@@ -11,7 +11,7 @@ class MVC( object ):
   def __init__( self ):
     self.garden_dir   = os.path.abspath( os.path.dirname(__file__) ) + '/'
     self.logging      = True
-    self.raspberry_pi = False
+    self.raspberry_pi = True
     self.db           = {
       'host' : 'localhost',
       'name' : 'garden',

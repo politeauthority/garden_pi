@@ -21,9 +21,15 @@ class DriverWeatherUnderAPI( object ):
       self.apikey  = Settings.get_option( 'weatherunderground-apikey' )
       self.zipcode = Settings.get_option( 'weatherunderground-zipcode' )
 
-  def run(self):
+  def run(self, ):
     api_data = self.fetch()
-    return self.save( api_data )
+    results  = {
+      'temp_f'      : api_data['current_observation']['temp_f'], 
+      'temp_f_feel' : api_data['current_observation']['feelslike_f'],
+      'humidity'    : api_data['current_observation']['relative_humidity'].replace( '%', '' )
+    }
+
+    return results
 
   def fetch(self):
     url = "http://api.wunderground.com/api/%s/conditions/q/%s.json" % ( self.apikey, self.zipcode )

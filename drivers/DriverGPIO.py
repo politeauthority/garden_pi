@@ -68,3 +68,17 @@ class DriverGPIO( object ):
     }
     Mysql.insert( 'weather_indoor', values )
     return [ temp_c, temp_f, humidity, dewPoint ]
+
+  def read_sht1x( self ):
+    from sht1x.Sht1x import Sht1x as SHT1x
+    dataPin = 24
+    clkPin  = 22
+    sht1x   = SHT1x(dataPin, clkPin, SHT1x.GPIO_BCM)
+
+    temp_c = sht1x.read_temperature_C()
+
+    return {
+      'temp_c'  : temp_c,
+      'temp_f'  : round( ( temp_c * ( 9.0 / 5.0 ) ) + 32, 1 ),
+      'humidity': round( sht1x.read_humidity(), 0 )
+    }

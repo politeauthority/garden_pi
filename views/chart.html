@@ -6,15 +6,16 @@
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = new google.visualization.arrayToDataTable([
-          ['Date', 'Indoors', 'Outdoors'],
-          {% for data in d['weather_stats_indoor'] %}
-            ['{{ data[3] }}', {{ data[1] }}, {% if d['weather_stats_outdoor'][loop.index] %}{{ d['weather_stats_outdoor'][loop.index][1] }} {% else %} 0 {% endif %} ],
+          ['Date', 'Indoors', 'Outdoors', 'Danger-Low', 'Danger-High'],
+          {% for data in d['weather_stats'] %}
+            [ '{{ data[6] }}', {{ data[1] }}, {{ data[3] }}, 60, 90],
           {% endfor %}
         ]);
 
         var options = {
-          title: 'Tempeature Indoor/Outdoor'
-        };
+          title: 'Tempeature Indoor/Outdoor',
+          colors: [ 'green', 'brown', 'blue', 'red' ],
+       };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
         chart.draw(data, options);
@@ -23,5 +24,8 @@
   </head>
   <body>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    indoor {{ d['weather_stats_indoor']|length }}
+
+    outdoor {{ d['weather_stats_outdoor']|length }}    
   </body>
 </html>

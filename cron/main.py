@@ -9,7 +9,7 @@ from MVC import MVC
 MVC = MVC()
 # End file header
 
-import time
+from datetime import date, datetime, time, timedelta
 
 # Read the SHT15 temperature/humidity sensor, log it
 Mysql    = MVC.loadDriver('Mysql')
@@ -40,6 +40,42 @@ if OutsideWeather or insideWeather:
 
 current = Weather.get_current()
 
+# LIGHTING CONFIGURATION
+if Settings.get_option( 'use-lighttiming' ):
+  from time import strptime
+  import subprocess
+
+  start  = Settings.get_option( 'lighttiming-start' ).split(':')
+  stop   = Settings.get_option( 'lighttiming-stop' ).split(':')
+
+  checkForJobTo   = datetime.today()
+  checkForJobFrom = checkForJobTo - timedelta( seconds = 600 )
+
+  start_time = checkForJobTo.strftime('%Y-%m-%d ') + '%s:%s' % ( start[0], start[1] )
+  start_time = datetime( *strptime(start_time, "%Y-%m-%d %H:%M")[0:6] )
+
+  stop_time  = checkForJobFrom.strftime('%Y-%m-%d ') + '%s:%s' % ( stop[0], stop[1] )
+  stop_time = datetime( *strptime(stop_time, "%Y-%m-%d %H:%M")[0:6] )
+
+  #datetime(*strptime(s, "%Y-%m-%dT%H:%M:%S")[0:6])
+  print start_time
+  print stop_time
+
+  if checkForJobFrom < start_time < checkForJobTo:
+    subprocess.call( "python %shardware.py --lighting=on" % MVC.garden_dir,    shell=True )
+    print 'start: its time to work!'
+  else:
+    print 'stop: not time for shit'
+
+  if checkForJobFrom < stop_time < checkForJobTo:
+    subprocess.call( "python %shardware.py --lighting=off" % MVC.garden_dir,    shell=True )
+    print 'start: its time to work!'
+
+  else:
+    print 'stop: not time for shit'
+
+  print checkForJobFrom
+  print checkForJobTo
 
 # Take what we have figured out and figure out if we need to notify anyone
 if alerts:

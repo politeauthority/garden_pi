@@ -101,6 +101,6 @@ root.settings_users  = Root().settings_users()
 root.chart           = Root().chart()
 
 root.test            = Root().test()
-cherrypy.quickstart(  Root(),  config = settings )
+cherrypy.quickstart(  Root(),  config = MVC.cherrypy_config )
 
 # End File: server.py

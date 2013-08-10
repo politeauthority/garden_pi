@@ -30,7 +30,7 @@ class HelperSettings( object ):
     return Mysql.ex( sql )
 
   def get_options( self ):
-    options = Mysql.ex( "SELECT * FROM %s.%s;" % ( MVC.db['name'], self.table_name ) )
+    options = Mysql.ex( "SELECT * FROM %s.%s ORDER BY `meta_key`;" % ( MVC.db['name'], self.table_name ) )
     return options
   
   def get_option( self, meta_key, bool = False ):
@@ -47,5 +47,11 @@ class HelperSettings( object ):
         return False
     else:
       return options[0][2]
+  
+  # Bulk is dictionary
+  def bulk_update( self, bulk ):
+    for meta_key, meta_value in bulk.items():
+      meta_key = meta_key.replace("settings['", '').replace("']", '')
+      self.update( meta_key, meta_value )
 
 # End File: helpers/HelperSettings.py

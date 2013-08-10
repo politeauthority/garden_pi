@@ -13,7 +13,6 @@ Settings = MVC.loadHelper('Settings')
 
 class ModelAlert( object ):
   def __init__( self ):
-    
     self.temp_high = Settings.get_option('alert-opt-temp-high')
     self.temp_low  = Settings.get_option('alert-opt-temp-low')
 

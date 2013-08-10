@@ -6,6 +6,10 @@ import sys
 from sys import path
 import os
 
+path.insert( 1, 'config' )
+from webserver_config import settings as cherrypy_config
+from primary_config import settings as garden_pi_config
+
 class MVC( object ):
 
   def __init__( self ):
@@ -13,11 +17,14 @@ class MVC( object ):
     self.logging      = True
     self.raspberry_pi = True
     self.db           = {
-      'host' : 'localhost',
+      'host' : garden_pi_config['database']['host'],
       'name' : 'garden',
       'user' : 'root',
       'pass' : 'cleancut',
     }
+    self.cherrypy_config = cherrypy_config
+    self.cherrypy_config['global']['server.sock_port'] = 8099
+    self.cherrypy_config['global']['server.sock_host'] = '10.1.10.68'
 
   def loadDriver( self, driver_name ):
     path.insert( 1, self.garden_dir + 'drivers' )

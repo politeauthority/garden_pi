@@ -7,7 +7,7 @@ import cherrypy
 settings = { 
     'global': {
         'server.socket_port'       : 8099,
-        'server.socket_host'       : "10.1.10.69",
+        'server.socket_host'       : "10.1.10.68",
         'server.socket_file'       : "",
         'server.socket_queue_size' : 5,
         'server.protocol_version'  : "HTTP/1.0",

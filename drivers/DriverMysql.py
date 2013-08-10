@@ -26,14 +26,19 @@ class DriverMysql( object ):
         value_sql = value_sql + '"%s",' % self.escape_string( value )
     value_sql = value_sql.rstrip( value_sql[-1:])
     sql = "INSERT INTO %s.%s (%s) VALUES(%s)" % ( self.dbname, table, column_sql, value_sql )
+    print sql
     self.ex( sql )
 
   def update( self, table, items, where, limit = 1 ):
     set_sql = ''
     for column, value in items.items():
       set_sql = set_sql + '`%s`="%s", ' % ( column, value )
-    set_sql = set_sql.rstrip( set_sql[-1:] )
-    sql = "UPDATE %s.%s SET %s WHERE `%s` = `%s`" % ( self.dbname, table, sql_set, where )
+    set_sql = set_sql.rstrip( set_sql[-2:] )
+    set_sql = set_sql + ' '
+    sql = "UPDATE %s.%s SET %s WHERE `%s` = '%s'" % ( self.dbname, table, set_sql, where[0], where[1] )
+
+    print sql
+    self.ex(sql)
 
   def escape_string( self, string ):
       return mdb.escape_string( string )

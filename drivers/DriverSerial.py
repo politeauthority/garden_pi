@@ -24,7 +24,7 @@ class DriverSerial( object ):
     self.ser_con.open()
 
   def outlet( self, outlet, enable = False ):
-#    self.conn()
+    self.conn()
     if outlet == 1:
       com = 1
     elif outlet == 2:

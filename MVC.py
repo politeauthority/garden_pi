@@ -6,9 +6,8 @@ import sys
 from sys import path
 import os
 
-path.insert( 1, 'config' )
-from webserver_config import settings as cherrypy_config
-from primary_config import settings as garden_pi_config
+from config.webserver_config import settings as cherrypy_config
+from config.primary_config import settings as garden_pi_config
 
 class MVC( object ):
 

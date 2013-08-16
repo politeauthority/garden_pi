@@ -3,13 +3,20 @@
 # Here we figure out what we need to run, and we execute it, every 10 minutes
 import sys
 import os
+from datetime import date, datetime, time, timedelta
+print datetime.today()
+
 
 sys.path.append( os.path.join(os.path.dirname(__file__), '..', '') )
 from MVC import MVC
 MVC = MVC()
 # End file header
 
-from datetime import date, datetime, time, timedelta
+
+
+import subprocess
+from time import strptime
+
 
 # Read the SHT15 temperature/humidity sensor, log it
 Mysql    = MVC.loadDriver('Mysql')
@@ -26,15 +33,26 @@ Logger.write('Starting Regular Cron', '', 'cron' )
 
 # Check all our sensors and run all our tasks
 if Settings.get_option('use-network-weatherunderground'):
+  print 'Weather Underground'
   WeatherUnderAPI = MVC.loadDriver( 'WeatherUnderAPI' )
   OutsideWeather  = WeatherUnderAPI.run()
   Logger.write( '    Weather Underground', 'Pulled and stored local weather', 'cron' )
 
 if Settings.get_option('use-sensor-shtx'):
-  GPIO          = MVC.loadDriver('GPIO')
-  insideWeather = GPIO.read_sht1x()
+  import ast
+  print 'Reading sht1x'
+  hardware_path = '%shardware.py' % MVC.garden_dir
+  proc = subprocess.Popen( "sudo python %s --read=sht1x" % hardware_path, stdout=subprocess.PIPE, shell=True  )
+  text = proc.communicate()[0]
+  insideWeather = ast.literal_eval( text )
+
+
+
+
+
   Logger.write( '    Temp/Humidty Sensor','Read and stored values', 'cron' )
 
+# @tdo: Figure out a better method for logging with either inside or outside weather missing
 if OutsideWeather or insideWeather:
   Weather.store_info( OutsideWeather, insideWeather )
 
@@ -42,9 +60,6 @@ current = Weather.get_current()
 
 # LIGHTING CONFIGURATION
 if Settings.get_option( 'use-lighttiming' ):
-  from time import strptime
-  import subprocess
-
   start  = Settings.get_option( 'lighttiming-start' ).split(':')
   stop   = Settings.get_option( 'lighttiming-stop' ).split(':')
 
@@ -62,13 +77,13 @@ if Settings.get_option( 'use-lighttiming' ):
   print stop_time
 
   if checkForJobFrom < start_time < checkForJobTo:
-    subprocess.call( "python %shardware.py --lighting=on" % MVC.garden_dir,    shell=True )
+    subprocess.call( "sudo python %shardware.py --lighting=on" % MVC.garden_dir,    shell=True )
     print 'start: its time to work!'
   else:
     print 'stop: not time for shit'
 
   if checkForJobFrom < stop_time < checkForJobTo:
-    subprocess.call( "python %shardware.py --lighting=off" % MVC.garden_dir,    shell=True )
+    subprocess.call( "sudo python %shardware.py --lighting=off" % MVC.garden_dir,    shell=True )
     print 'start: its time to work!'
 
   else:
@@ -94,6 +109,6 @@ if alerts:
     Logger.write('    [ALERT] %s' % message[0], message[1], 'cron' )    
     Alert.messaging( message )
 
-Logger.write( ' ', '', 'cron' );
+
 
 # End File: cron/main.py

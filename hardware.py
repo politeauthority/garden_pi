@@ -15,41 +15,62 @@ import getopt
 
 
 
-print 'Hardware.py'
-
-
-def main(argv):                         
-	grammar = "kant.xml"                
+def main(argv):
 	try:                                
-		opts, args = getopt.getopt(argv, "hg:d", ["help", "lighting="])
+		opts, args = getopt.getopt(argv, "hg:d", ["help", "d", "lighting=", "read="])
 	except getopt.GetoptError:
 		usage()
 		sys.exit()
 	for opt, arg in opts:
+		global verbose		
+		
+		if opt == '-v':
+			verbose = 1
+		else:
+			verbose = 0
+
+			if verbose:
+				print 'Hardware.py'
+
 		if opt in ("-h", "--help"):
 			usage()
 			sys.exit()
-		elif opt == '-d':
-			global _debug               
-			_debug = 1                  
 		elif opt in ("-l", "--lighting"):
 			print 'Lighting'
 			lighting( arg )
+		elif opt in ("-r", "--read"):
+			if verbose:
+				print 'Sensor Reading'
+			if arg == 'sht1x':
+				print sensor_sht1x()
+			else:
+				print 'Unknown sensor'
+				sys.exit()
 		else:
-			print 'here'
+			usage()
 
 def usage():
+	print 'Welcome to hardware.py! heres some basic usage'
 	print '--lighting: "on" or "off"'
+	print '--read: '
+	print '   sht1x - temperature/humidity'
 	print '--help:     This screen'
 
 def lighting( status ):
+	global verbose
 	Devices = MVC.loadModel('Devices')
-	Devices.lighting( status )	
-	print 'Lights have been turned %s' % status
+	Devices.lighting( status )
+	if verbose:
+		print 'Lights have been turned %s' % status
 	sys.exit()
 
-
-
+def sensor_sht1x():
+	global verbose
+	if verbose:
+		print 'SHTX Sensor'
+	GPIO = MVC.loadDriver( 'GPIO' )
+	reading = GPIO.read_sht1x()
+	return reading
 
 if __name__ == "__main__":
   main( sys.argv[1:] )

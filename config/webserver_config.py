@@ -36,3 +36,5 @@ settings = {
         'tools.staticdir.dir': "libs"
     }
 }
+
+# End file: config/webserver_config.py

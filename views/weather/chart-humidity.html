@@ -8,12 +8,12 @@
         var data = new google.visualization.arrayToDataTable([
           ['Date', 'Indoors', 'Outdoors', 'Danger-Low', 'Danger-High'],
           {% for data in d['weather_stats'] %}
-            [ '{{ data[6] }}', {{ data[1] }}, {{ data[3] }}, 65, 85],
+            [ '{{ data[6] }}', {{ data[2] }}, {{ data[5] }}, 20, 60],
           {% endfor %}
         ]);
 
         var options = {
-          title: 'Tempeature Indoor/Outdoor',
+          title: 'Humidity Indoor/Outdoor',
           colors: [ 'green', 'brown', 'blue', 'red' ],
        };
 

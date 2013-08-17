@@ -36,15 +36,39 @@ class Root:
     return view.render( d = tpl_args )
   dashboard.exposed = True
 
+
+  #Weather Pages
+
   def weather( self ):
     Weather = MVC.loadModel('Weather')
     tpl_args = {
       'weather_current' : Weather.get_current(),
       'weather_min_max' : Weather.get_min_max(),
     }
-    view = env.get_template('weather.html')
+    view = env.get_template('weather/index.html')
     return view.render( d = tpl_args )
   weather.exposed = True
+
+  def chart_humidity( self ):
+    Weather = MVC.loadModel('Weather')
+    tpl_args = {
+      'weather_stats'   : Weather.get_stats( )
+    }
+    view = env.get_template('weather/chart-humidity.html')
+    return view.render( d = tpl_args )
+  chart_humidity.exposed = True
+
+  def chart_temp( self ):
+    Weather = MVC.loadModel('Weather')
+    tpl_args = {
+      'weather_stats'   : Weather.get_stats( )
+    }
+    view = env.get_template('weather/chart-temp.html')
+    return view.render( d = tpl_args )
+  chart_temp.exposed = True
+
+
+  #Water Pages
 
   def water( self ):
     test = 'something'
@@ -60,6 +84,9 @@ class Root:
     view = env.get_template('chart.html')
     return view.render( d = tpl_args )
   chart.exposed = True
+
+
+  #Settings Pages
 
   def settings( self, *boom ):
     Weather  = MVC.loadModel('Weather')
@@ -84,23 +111,17 @@ class Root:
     return view.render()
   settings_users.exposed = True
 
-
-  def test( self ):
-    Weather = MVC.loadModel('Weather')
-    return str( 'hey' )
-  test.exposed = True
-
-
 root = Root()
-root.dashboard       = Root().dashboard()
-root.weather         = Root().weather()
-root.water           = Root().water()
-root.settings        = Root().settings()
-root.settings_update = Root().settings_update()
-root.settings_users  = Root().settings_users()
-root.chart           = Root().chart()
+root.dashboard        = Root().dashboard()
+root.weather          = Root().weather()
+root.chart_temp       = Root().chart_temp()
+root.chart_humidity   = Root().chart_humidity()
+root.water            = Root().water()
+root.settings         = Root().settings()
+root.settings_update  = Root().settings_update()
+root.settings_users   = Root().settings_users()
+root.chart            = Root().chart()
 
-root.test            = Root().test()
 cherrypy.quickstart(  Root(),  config = MVC.cherrypy_config )
 
 # End File: server.py

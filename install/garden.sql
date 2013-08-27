@@ -7,13 +7,14 @@
 --
 -- Table structure for table `device_runtime`
 --
-CREATE DATABASE `garden`;
-USE DATABASE `garden`;
+DROP DATABASE IF EXISTS `garden`;
 
-DROP TABLE IF EXISTS `device_runtime`;
+CREATE DATABASE `garden`;
+
+DROP TABLE IF EXISTS `garden`.`device_runtime`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `device_runtime` (
+CREATE TABLE `garden`.`device_runtime` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `device_id` int(30) NOT NULL,
   `date_on` varchar(50) NOT NULL,
@@ -26,9 +27,9 @@ CREATE TABLE `device_runtime` (
 -- Table structure for table `devices`
 --
 
-DROP TABLE IF EXISTS `devices`;
+DROP TABLE IF EXISTS `garden`.`devices`;
 
-CREATE TABLE `devices` (
+CREATE TABLE `garden`.`devices` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `status_bit` int(1) NOT NULL,
@@ -42,9 +43,9 @@ CREATE TABLE `devices` (
 -- Table structure for table `devices_log`
 --
 
-DROP TABLE IF EXISTS `devices_log`;
+DROP TABLE IF EXISTS `garden`.`devices_log`;
 
-CREATE TABLE `devices_log` (
+CREATE TABLE `garden`.`devices_log` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `device_id` varchar(200) NOT NULL,
   `user_id` int(1) NOT NULL,
@@ -58,9 +59,9 @@ CREATE TABLE `devices_log` (
 -- Table structure for table `garden_options`
 --
 
-DROP TABLE IF EXISTS `garden_options`;
+DROP TABLE IF EXISTS `garden`.`garden_options`;
 
-CREATE TABLE `garden_options` (
+CREATE TABLE `garden`.`garden_options` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `meta_key` varchar(200) NOT NULL,
   `meta_value` varchar(200) NOT NULL,
@@ -74,9 +75,9 @@ CREATE TABLE `garden_options` (
 -- Table structure for table `weather`
 --
 
-DROP TABLE IF EXISTS `weather`;
+DROP TABLE IF EXISTS `garden`.`weather`;
 
-CREATE TABLE `weather` (
+CREATE TABLE `garden`.`weather` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `indoor_temp_f` varchar(10) DEFAULT NULL,
   `indoor_humidity` varchar(50) DEFAULT NULL,
@@ -87,22 +88,19 @@ CREATE TABLE `weather` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1546 DEFAULT CHARSET=latin1;
 
-/* ACL SYSTEM */
-CREATE TABLE `acl_app` (
-  `ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `restore` datetime NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1
 
- CREATE TABLE `acl_permissions` (
+
+/* ACL SYSTEM */
+
+ CREATE TABLE `garden`.`acl_permissions` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `permKey` varchar(30) NOT NULL,
   `permName` varchar(30) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `permKey` (`permKey`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `acl_role_perms` (
+CREATE TABLE `garden`.`acl_role_perms` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `roleID` bigint(20) NOT NULL,
   `permID` bigint(20) NOT NULL,
@@ -110,16 +108,16 @@ CREATE TABLE `acl_role_perms` (
   `addDate` datetime NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `roleID_2` (`roleID`,`permID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `acl_roles` (
+CREATE TABLE `garden`.`acl_roles` (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `roleName` varchar(20) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `roleName` (`roleName`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
- CREATE TABLE `acl_user_perms` (
+ CREATE TABLE `garden`.`acl_user_perms` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `userID` bigint(20) NOT NULL,
   `permID` bigint(20) NOT NULL,
@@ -127,11 +125,11 @@ CREATE TABLE `acl_roles` (
   `addDate` datetime NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `userID` (`userID`,`permID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `acl_user_roles` (
+CREATE TABLE `garden`.`acl_user_roles` (
   `userID` bigint(20) NOT NULL,
   `roleID` bigint(20) NOT NULL,
   `addDate` datetime NOT NULL,
   UNIQUE KEY `userID` (`userID`,`roleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

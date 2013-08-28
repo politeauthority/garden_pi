@@ -76,15 +76,6 @@ class Root:
     return view.render( )
   water.exposed = True
 
-  def chart( self ):
-    Weather = MVC.loadModel('Weather')
-    tpl_args = {
-      'weather_stats'   : Weather.get_stats( )
-    }
-    view = env.get_template('chart.html')
-    return view.render( d = tpl_args )
-  chart.exposed = True
-
 
   #Settings Pages
 
@@ -120,7 +111,6 @@ root.water            = Root().water()
 root.settings         = Root().settings()
 root.settings_update  = Root().settings_update()
 root.settings_users   = Root().settings_users()
-root.chart            = Root().chart()
 
 cherrypy.quickstart(  Root(),  config = MVC.cherrypy_config )
 

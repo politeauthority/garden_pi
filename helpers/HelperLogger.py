@@ -12,6 +12,7 @@ from MVC import MVC
 MVC = MVC()
 # End file header
 
+from os import path
 
 class HelperLogger( object ):
 
@@ -23,6 +24,9 @@ class HelperLogger( object ):
     from datetime import date, datetime, time, timedelta
     
     if self.logging:
+      if path.isdir( self.log_dir ) == False:
+        os.mkdir( self.log_dir )
+
       if log_file == None:
         log_file = 'main.log'
       else:

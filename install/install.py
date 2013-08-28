@@ -11,7 +11,7 @@ MVC = MVC()
 import subprocess
 
 
-subprocess.call( "sudo apt-get install arduino",    shell=True )
+subprocess.call( "apt-get install arduino",    shell=True )
 subprocess.call( "apt-get install python-serial",   shell=True )
 
 subprocess.call( "apt-get install python-cherrypy", shell=True )

@@ -17,8 +17,9 @@ Mysql = MVC.loadDriver('Mysql')
 
 class DriverGPIO( object ):
   def __init__( self ):
-    self.water_pump = 18
+    self.water_pump = 18 # @note: this class var is not being used
 
+  # @note: this method is not being used
   def pump_toggle( self ):
     pump_status = self.pump_status()        
     if pump_status:
@@ -33,6 +34,7 @@ class DriverGPIO( object ):
     GPIO.output( self.water_pump, set_value )
     return query
 
+  # @note: this method is not being used
   def pump_status( self, give_back = False ):
       previously_on = Mysql.ex( "SELECT * FROM garden.device_runtime WHERE device_id = 1 ORDER BY id DESC LIMIT 1;" )
       if previously_on and previously_on[0][3]:
@@ -49,31 +51,19 @@ class DriverGPIO( object ):
         return previously_on
       else:
         return False
-    
-  def read_sensor( self ):
-    from sht1x.Sht1x import Sht1x as SHT1x
-    dataPin = 24
-    clkPin  = 22
-    sht1x   = SHT1x(dataPin, clkPin, SHT1x.GPIO_BCM)
-
-    temp_c      = sht1x.read_temperature_C()
-    temp_f      = round( ( temp_c * ( 9.0 / 5.0 ) ) + 32, 1 )
-    humidity    = round( sht1x.read_humidity(), 0 )
-    dewPoint    = sht1x.calculate_dew_point( temp_c, humidity )
-
-    values      = {
-      'temp_f'   : temp_f,
-      'humidity' : humidity,
-      'date'     : time.strftime("%Y-%m-%d %H:%M:%S")
-    }
-    Mysql.insert( 'weather_indoor', values )
-    return [ temp_c, temp_f, humidity, dewPoint ]
 
   def read_sht1x( self ):
     from sht1x.Sht1x import Sht1x as SHT1x
     dataPin = 24
     clkPin  = 22
-    sht1x   = SHT1x(dataPin, clkPin, SHT1x.GPIO_BCM)
+
+    try:
+      sht1x   = SHT1x(dataPin, clkPin, SHT1x.GPIO_BCM)
+    except:
+      print 'didnt work'
+      Alert = MVC.loadModel('Alert')
+      Alert.messaging( ['GPIO Issue', 'There is a problem reading the GPIO on the RaspberryPi.'] )
+      return False     
 
     temp_c = sht1x.read_temperature_C()
 
@@ -82,3 +72,5 @@ class DriverGPIO( object ):
       'temp_f'  : round( ( temp_c * ( 9.0 / 5.0 ) ) + 32, 1 ),
       'humidity': round( sht1x.read_humidity(), 0 )
     }
+
+# End File: drivers/DriverGPIO.py

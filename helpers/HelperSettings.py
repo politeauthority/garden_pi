@@ -55,14 +55,15 @@ class HelperSettings( object ):
       self.update( meta_key, meta_value )
 
   def insert( self, meta_key, meta_value, pretty_name, help_text, parent = 0 ):
-    option = {
-      'meta_key'    : meta_key,
-      'meta_value'  : meta_value,
-      'pretty_name' : pretty_name,
-      'help_text'   : help_text,
-      'parent'      : parent
-    }
-    Mysql.insert( self.table_name, option )
+    if self.get_option( meta_key ) == False:
+      option = {
+        'meta_key'    : meta_key,
+        'meta_value'  : meta_value,
+        'pretty_name' : pretty_name,
+        'help_text'   : help_text,
+        'parent'      : parent
+      }
+      Mysql.insert( self.table_name, option )
     return self.get_option( meta_key )
 
 # End File: helpers/HelperSettings.py

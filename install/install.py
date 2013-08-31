@@ -154,7 +154,21 @@ Mysql.ex( createTable_weather )
 
 Settings = MVC.loadHelper('Settings')
 
-print Settings.insert( 'site-url',         'http',  'Site Url',     'asdasd', 0 )
-print Settings.insert( 'use-sensor-shtx',  '0', 'SHT1x Sensor', 'Use the temperature humidity sensor'  )
+opt_site_url                       = Settings.insert( 'site-url',                        '',      'Site Url',                     '',                                     )
+opt_use_sensor_shtx                = Settings.insert( 'use-sensor-shtx',                 '0',     'SHT1x Sensor',                 'Use the temperature humidity sensor'   )
+
+opt_use_network_weatherunderground = Settings.insert( 'use-network-weatherunderground',  '0',     'Weather Underground system',      'Weather Unground System'            )
+Settings.insert( 'weatherunderground-apikey',       '',      'Weather Underground API key',  '',                    opt_use_network_weatherunderground[0]  )
+Settings.insert( 'weatherunderground-zipcode',      '',      'Weather Underground: Zipcode', '',                    opt_use_network_weatherunderground[0]  )
+
+opt_use_alert                      = Settings.insert( 'use-alert',                       '0',     'Alert System',                 'Use the Alert System'                  )
+Settings.insert( 'alert-opt-temp-high',             '85',    'High Temperature Alert',       '',                    opt_use_alert[0]                                      )
+Settings.insert( 'alert-opt-temp-low',              '60',    'Low Temperature Alert',        '',                    opt_use_alert[0]                                      )
+
+opt_use_lighttiming                = Settings.insert( 'use-lighttiming',                    '0',  'Light Timing',                 'Use the Light Timing system'           )
+Settings.insert( 'lighttiming-start',               '',      'Start Lights',                '',                    opt_use_lighttiming[0]                                 )
+Settings.insert( 'lighttiming-stop',                '',      'Stop Lights',                 '',                    opt_use_lighttiming[0]                                 )
+
+opt_prowl                          = Settings.insert( 'use-prowl',                          '',   'Prowl Notifications',          ''                                      )
 
 #End File: install/install.py

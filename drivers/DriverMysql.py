@@ -14,6 +14,7 @@ MVC = MVC()
 import MySQLdb as mdb
 
 class DriverMysql( object ):
+
   def __init__( self ):
     self.host     = MVC.db['host']
     self.dbname   = MVC.db['name']
@@ -24,11 +25,12 @@ class DriverMysql( object ):
     conn = mdb.connect( self.host, self.user, self.password)
     cur = conn.cursor()
     cur.execute( query )
+    conn.commit()
     return cur.fetchall()
 
   def insert(self, table, items ):
     columns = []
-    values = []
+    values  = []
     for column, value in items.items():
       columns.append(column)
       values.append( str(value) )
@@ -37,7 +39,8 @@ class DriverMysql( object ):
     for value in values:
         value_sql = value_sql + '"%s",' % self.escape_string( value )
     value_sql = value_sql.rstrip( value_sql[-1:])
-    sql = "INSERT INTO %s.%s (%s) VALUES (%s)" % ( self.dbname, table, column_sql, value_sql )
+    sql = "INSERT INTO %s.%s (%s) VALUES (%s);" % ( self.dbname, table, column_sql, value_sql ) 
+    self.ex( sql )
 
   def update( self, table, items, where, limit = 1 ):
     set_sql = ''

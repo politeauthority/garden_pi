@@ -170,4 +170,7 @@ Settings.insert( 'lighttiming-stop',                '',      'Stop Lights',     
 
 opt_prowl                          = Settings.insert( 'use-prowl',                          '',   'Prowl Notifications',          ''                                      )
 
+UserModel  = MVC.loadModel('User')
+adminUser = UserModel.create( 'admin', '', 'password' )
+
 #End File: install/install.py

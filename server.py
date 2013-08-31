@@ -80,10 +80,11 @@ class Root:
   #Settings Pages
 
   def settings( self, *boom ):
-    Weather  = MVC.loadModel('Weather')
-    Settings = MVC.loadHelper( 'Settings' )
+    UsersModel = MVC.loadModel('User')
+    Settings   = MVC.loadHelper( 'Settings' )
     #Settings.update( 'url', 'http://www.somewhere.com' )
     tpl_args = {
+      'users'        : UsersModel.getAll(),
       'settings'     : Settings.get_options()
     }
     view = env.get_template('settings.html')

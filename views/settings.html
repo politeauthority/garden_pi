@@ -1,6 +1,6 @@
 <div class="row-fluid">
   
-  <div class="span6 offset3">
+  <div class="span6">
     <h3>System Settings</h3>
     <form action="/settings_update/" method="POST">
       <ul>
@@ -15,6 +15,13 @@
         <li><input class="btn btn-primary" value="Update" type="submit"></li>
       </ul>
     </form>
+  </div>
+
+  <div class="span6">
+    <h3>Users</h3>
+    {% for user in d['users'] %}
+      {{ d['users'][0] }}, {{ d['users'][1] }}
+    {% endfor %}      
   </div>
 
 </div>

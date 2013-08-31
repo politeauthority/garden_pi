@@ -31,20 +31,32 @@ class ModelWeather( object ):
     dt = datetime.now() - timedelta( seconds = seconds_back )
     indoor_temp_min = Mysql.ex( "SELECT MIN( indoor_temp_f ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
     indoor_temp_avg = Mysql.ex( "SELECT AVG( indoor_temp_f ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
-    indoor_temp_avg = round( indoor_temp_avg[0][0], 1 )
+    if indoor_temp_avg[0][0]:
+      indoor_temp_avg = round( indoor_temp_avg[0][0], 1 )
+    else:
+      indoor_temp_avg = 0
     indoor_temp_max = Mysql.ex( "SELECT MAX( indoor_temp_f ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
     indoor_hum_min  = Mysql.ex( "SELECT MIN( indoor_humidity ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
     indoor_hum_avg  = Mysql.ex( "SELECT AVG( indoor_humidity ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
-    indoor_hum_avg  = round( indoor_hum_avg[0][0], 1 )
+    if indoor_hum_avg[0][0]:
+      indoor_hum_avg  = round( indoor_hum_avg[0][0], 1 )
+    else:
+      indoor_hum_avg = 0
     indoor_hum_max  = Mysql.ex( "SELECT MAX( indoor_humidity ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
 
     outdoor_temp_min = Mysql.ex( "SELECT MIN( outdoor_temp_f ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
     outdoor_temp_avg = Mysql.ex( "SELECT AVG( outdoor_temp_f ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
-    outdoor_temp_avg = round( outdoor_temp_avg[0][0], 1 )
+    if outdoor_temp_avg[0][0]:
+      outdoor_temp_avg = round( outdoor_temp_avg[0][0], 1 )
+    else:
+      outdoor_temp_avg = 0
     outdoor_temp_max = Mysql.ex( "SELECT MAX( outdoor_temp_f ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
     outdoor_hum_min  = Mysql.ex( "SELECT MIN( outdoor_humidity ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
     outdoor_hum_avg  = Mysql.ex( "SELECT AVG( outdoor_humidity ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
-    outdoor_hum_avg  = round( outdoor_hum_avg[0][0], 1 )
+    if outdoor_hum_avg[0][0]:
+      outdoor_hum_avg  = round( outdoor_hum_avg[0][0], 1 )
+    else: 
+      outdoor_hum_avg = 0
     outdoor_hum_max  = Mysql.ex( "SELECT MAX( outdoor_humidity ) FROM %s.weather WHERE `date` > '%s';" % ( MVC.db['name'], dt ) )
     results = {
       'indoor_temp_min'      : indoor_temp_min[0][0],

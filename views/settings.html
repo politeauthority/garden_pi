@@ -6,9 +6,9 @@
       <ul>
         {% for option in d['settings'] %}
           <li class="row">
-            <span class="span4">{{ option[3] }}</span>
+            <span class="span4">{{ option[4] }}</span>
             <span class="span8">
-              <input name="settings['{{ option[1] }}']"type="text" class="input input-large" value="{{ option[2] }}">
+              <input name="settings['{{ option[1] }}']" type="text" class="input input-large" value="{{ option[2] }}">
             </span>
           </li>
         {% endfor %}

@@ -6,3 +6,7 @@
     position: relative;
     top: -1000px;
 }
+
+ul {
+	list-style: none;
+}

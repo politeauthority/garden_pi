@@ -10,19 +10,18 @@ MVC = MVC()
 # End file header
 import subprocess
 
+# Install all the software were gonna need to run properly
+subprocess.call( "apt-get install arduino",         shell=True )
+subprocess.call( "apt-get install python-serial",   shell=True )
 
-# subprocess.call( "apt-get install arduino",    shell=True )
-# subprocess.call( "apt-get install python-serial",   shell=True )
+subprocess.call( "apt-get install python-cherrypy", shell=True )
+subprocess.call( "apt-get install python-jinja2",   shell=True )
+subprocess.call( "apt-get install python-dev",      shell=True )
 
-# subprocess.call( "apt-get install python-cherrypy", shell=True )
-# subprocess.call( "apt-get install python-jinja2",   shell=True )
-# subprocess.call( "apt-get install python-dev",      shell=True )
+subprocess.call( "apt-get install python-cherrypy", shell=True )
 
-# subprocess.call( "apt-get install python-cherrypy", shell=True )
-
-# if MVC.raspberry_pi:
-#     subprocess.call( "apt-get install python-rpi.gpio", shell=True )
-
+if MVC.raspberry_pi:
+    subprocess.call( "apt-get install python-rpi.gpio", shell=True )
 
 
 # Create the SQL tables we require

@@ -117,14 +117,22 @@ createTable_user_acl_user_roles  = """CREATE TABLE `"""+ MVC.db['name'] +"""`.`a
 # Sensor reading tables
 createTable_weather = """CREATE TABLE `"""+ MVC.db['name'] +"""`.`weather` (
 	`id` 										int(9) NOT NULL AUTO_INCREMENT,
+  `date`                  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`indoor_temp_f` 				varchar(10) DEFAULT NULL,
   `indoor_humidity` 			varchar(50) DEFAULT NULL,
   `outdoor_temp_f` 				varchar(50) DEFAULT NULL,
   `outdoor_temp_f_feels`	varchar(50) DEFAULT NULL,
   `outdoor_humidity` 			varchar(60) DEFAULT NULL,
-  `date` 									varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );"""
+
+createTable_wate = """CREATE TABLE `"""+ MVC.db['name'] +"""`.`water` (
+  `id`            int(11) NOT NULL AUTO_INCREMENT,
+  `date`          timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `water_temp_1`  decimal(4,2) DEFAULT NULL,
+  `flow_rate_1`   decimal(4,2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+); """
 
 # @todo: make a backup of the db if somethings there
 Mysql.ex( "DROP DATABASE IF EXISTS `%s`;" % MVC.db['name'] )
@@ -149,7 +157,8 @@ Mysql.ex( 'DROP TABLE IF EXISTS %s.acl_user_roles' % MVC.db['name']  )
 Mysql.ex( createTable_user_acl_user_roles )
 Mysql.ex( 'DROP TABLE IF EXISTS %s.weather' % MVC.db['name']  )
 Mysql.ex( createTable_weather )
-
+Mysql.ex( 'DROP TABLE IF EXISTS %s.water' % MVC.db['name']  )
+Mysql.ex( createTable_water )
 
 Settings = MVC.loadHelper('Settings')
 

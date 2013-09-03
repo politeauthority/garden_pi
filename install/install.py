@@ -126,7 +126,7 @@ createTable_weather = """CREATE TABLE `"""+ MVC.db['name'] +"""`.`weather` (
   PRIMARY KEY (`id`)
 );"""
 
-createTable_wate = """CREATE TABLE `"""+ MVC.db['name'] +"""`.`water` (
+createTable_water = """CREATE TABLE `"""+ MVC.db['name'] +"""`.`water` (
   `id`            int(11) NOT NULL AUTO_INCREMENT,
   `date`          timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `water_temp_1`  decimal(4,2) DEFAULT NULL,

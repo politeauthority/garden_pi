@@ -126,7 +126,7 @@ createTable_weather = """CREATE TABLE `"""+ MVC.db['name'] +"""`.`weather` (
   PRIMARY KEY (`id`)
 );"""
 
-createTable_wate = """CREATE TABLE `"""+ MVC.db['name'] +"""`.`water` (
+createTable_water = """CREATE TABLE `"""+ MVC.db['name'] +"""`.`water` (
   `id`            int(11) NOT NULL AUTO_INCREMENT,
   `date`          timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `water_temp_1`  decimal(4,2) DEFAULT NULL,
@@ -166,16 +166,16 @@ opt_site_url                       = Settings.insert( 'site-url',               
 opt_use_sensor_shtx                = Settings.insert( 'use-sensor-shtx',                 '0',     'SHT1x Sensor',                 'Use the temperature humidity sensor'   )
 
 opt_use_network_weatherunderground = Settings.insert( 'use-network-weatherunderground',  '0',     'Weather Underground system',      'Weather Unground System'            )
-Settings.insert( 'weatherunderground-apikey',       '',      'Weather Underground API key',  '',                    opt_use_network_weatherunderground[0]  )
-Settings.insert( 'weatherunderground-zipcode',      '',      'Weather Underground: Zipcode', '',                    opt_use_network_weatherunderground[0]  )
+Settings.insert( 'weatherunderground-apikey',  '',      'Weather Underground API key',  '',                    opt_use_network_weatherunderground[0]  )
+Settings.insert( 'weatherunderground-zipcode', '',      'Weather Underground: Zipcode', '',                    opt_use_network_weatherunderground[0]  )
 
 opt_use_alert                      = Settings.insert( 'use-alert',                       '0',     'Alert System',                 'Use the Alert System'                  )
-Settings.insert( 'alert-opt-temp-high',             '85',    'High Temperature Alert',       '',                    opt_use_alert[0]                                      )
-Settings.insert( 'alert-opt-temp-low',              '60',    'Low Temperature Alert',        '',                    opt_use_alert[0]                                      )
+Settings.insert( 'alert-opt-temp-high',        '85',    'High Temperature Alert',       '',                    opt_use_alert[0]                                      )
+Settings.insert( 'alert-opt-temp-low',         '60',    'Low Temperature Alert',        '',                    opt_use_alert[0]                                      )
 
 opt_use_lighttiming                = Settings.insert( 'use-lighttiming',                    '0',  'Light Timing',                 'Use the Light Timing system'           )
-Settings.insert( 'lighttiming-start',               '',      'Start Lights',                '',                    opt_use_lighttiming[0]                                 )
-Settings.insert( 'lighttiming-stop',                '',      'Stop Lights',                 '',                    opt_use_lighttiming[0]                                 )
+Settings.insert( 'lighttiming-start',          '',      'Start Lights',                '',                    opt_use_lighttiming[0]                                 )
+Settings.insert( 'lighttiming-stop',           '',      'Stop Lights',                 '',                    opt_use_lighttiming[0]                                 )
 
 opt_prowl                          = Settings.insert( 'use-prowl',                          '',   'Prowl Notifications',          ''                                      )
 

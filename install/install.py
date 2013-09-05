@@ -14,11 +14,9 @@ import subprocess
 subprocess.call( "apt-get install arduino",         shell=True )
 subprocess.call( "apt-get install python-serial",   shell=True )
 
-subprocess.call( "apt-get install python-cherrypy", shell=True )
-subprocess.call( "apt-get install python-jinja2",   shell=True )
-subprocess.call( "apt-get install python-dev",      shell=True )
-
-subprocess.call( "apt-get install python-cherrypy", shell=True )
+subprocess.call( "apt-get install python-cherrypy3", shell=True )
+subprocess.call( "apt-get install python-jinja2",    shell=True )
+subprocess.call( "apt-get install python-dev",       shell=True )
 
 if MVC.raspberry_pi:
     subprocess.call( "apt-get install python-rpi.gpio", shell=True )

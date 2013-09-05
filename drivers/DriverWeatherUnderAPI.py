@@ -33,7 +33,6 @@ class DriverWeatherUnderAPI( object ):
 
   def fetch(self):
     url = "http://api.wunderground.com/api/%s/conditions/q/%s.json" % ( self.apikey, self.zipcode )
-    print url
     response = urllib.urlopen(url);
     data = json.loads(response.read())
     return data

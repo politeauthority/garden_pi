@@ -48,7 +48,14 @@ class DriverMysql( object ):
       set_sql = set_sql + '`%s`="%s", ' % ( column, value )
     set_sql = set_sql.rstrip( set_sql[-2:] )
     set_sql = set_sql + ' '
-    sql = "UPDATE %s.%s SET %s WHERE `%s` = '%s'" % ( self.dbname, table, set_sql, where[0], where[1] )
+
+    where_sql = ''
+    for column, value in where.items():
+      where_sql = where_sql + '`%s`="%s" AND ' % ( column, value )
+    where_sql = "WHERE " + where_sql[:-4]
+    limit_sql = "LIMIT %s" % limit
+    sql = "UPDATE %s.%s SET %s %s %s" % ( self.dbname, table, set_sql, where_sql, limit_sql )
+
     self.ex( sql )
 
   def escape_string( self, string ):

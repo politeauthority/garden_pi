@@ -17,13 +17,19 @@ Mysql = MVC.loadDriver('Mysql')
 
 class HelperACL( object ):
 
-  def __init__( self ):
+  def __init__( self, user_id = False ):
     self.perms      = []
     self.user_id    = '';
     self.user_roles = '1';
     self.database   = MVC.db['name'] 
+    
+    #if user_id:
+      #self.user_id = user_id
   
   def getUserRoles( self ):
     sql = "SELECT * FROM %s.acl_user_roles WHERE user_id = %s ORDER BY `addDate` ASC" % ( self.database, self.user_id )
+
+  def user( self ):
+    print self.user_id
 
 # End File: helpers/HelperACL.py

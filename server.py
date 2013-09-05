@@ -13,9 +13,6 @@ from sys import path
 import cherrypy
 from jinja2 import Environment, FileSystemLoader
 
-path.insert( 1, 'config')
-from webserver_config import settings
-
 env = Environment( loader=FileSystemLoader('views') )
 
 class Root:
@@ -87,7 +84,7 @@ class Root:
       'users'        : UsersModel.getAll(),
       'settings'     : Settings.get_options()
     }
-    view = env.get_template('settings.html')
+    view = env.get_template('settings/index.html')
     return view.render( d = tpl_args )
   settings.exposed = True
 
@@ -98,21 +95,21 @@ class Root:
     cherrypy.InternalRedirect('/')
   settings_update.exposed = True
 
-  def settings_users( self ):
-    view = env.get_template('users.html')
+  def settings_user_add( self ):
+    view = env.get_template('settings/user_add.html')
     return view.render()
-  settings_users.exposed = True
+  settings_user_add.exposed = True
 
 root = Root()
-root.dashboard        = Root().dashboard()
-root.weather          = Root().weather()
-root.chart_temp       = Root().chart_temp()
-root.chart_humidity   = Root().chart_humidity()
-root.water            = Root().water()
-root.settings         = Root().settings()
-root.settings_update  = Root().settings_update()
-root.settings_users   = Root().settings_users()
-
+root.dashboard           = Root().dashboard()
+root.weather             = Root().weather()
+root.chart_temp          = Root().chart_temp()
+root.chart_humidity      = Root().chart_humidity()
+root.water               = Root().water()
+root.settings            = Root().settings()
+root.settings_update     = Root().settings_update()
+root.settings_user_add   = Root().settings_user_add()
+print MVC.cherrypy_config
 cherrypy.quickstart(  Root(),  config = MVC.cherrypy_config )
 
 # End File: server.py

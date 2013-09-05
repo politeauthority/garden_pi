@@ -18,9 +18,14 @@ class ModelAlert( object ):
 
   def messaging( self, message ):
     if Settings.get_option('use-prowl'):
-      Prowl = MVC.loadDriver('Prowl')
-      prowl_api_key = Settings.get_option('prowl-apikey')
+      self.prowl_alerts( message )
+    return True
 
-      Prowl.send( prowl_api_key, message[0], message[1], 1 )
+  def prowl_alerts( self, message ):
+    UserModel = MVC.loadModel( 'User' )
+    users = UserModel.getUsersWithMeta( 'prowl-apikey' )
+    Prowl = MVC.loadDriver('Prowl')
+    for user in users:
+      Prowl.send( user['meta']['prowl-apikey'], message[0], message[1], 1 )
 
 # End File: models/ModelAlert.py

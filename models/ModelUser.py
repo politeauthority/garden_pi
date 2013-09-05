@@ -22,9 +22,15 @@ class ModelUser( object ):
     return user
 
   def getById( self, user_id ):
-    sql = 'SELECT * FROM `%s`.`users` WHERE id`` = "%s" LIMIT 1;' % ( MVC.db['name'], user_id )
+    sql = 'SELECT * FROM `%s`.`users` WHERE `id` = "%s" LIMIT 1;' % ( MVC.db['name'], user_id )
     user = Mysql.ex( sql )
-    return user
+    the_user = {
+      'id'         : user[0][0],
+      'user'       : user[0][1],
+      'last_login' : user[0][4],
+      'meta'       : self.getUserMeta( user[0][0] )
+    }
+    return the_user
 
   def getAll( self ):
     sql = 'SELECT * FROM `%s`.`users`;' % self.db_name
@@ -32,14 +38,22 @@ class ModelUser( object ):
     return users
 
   def getUsersWithMeta( self, meta_key ):
-    sql = "SELECT * FROM %s.usermeta WHERE `meta_key` = %s;" % ( self.db_name, meta_key  )
-    print sql
+    sql = 'SELECT * FROM %s.usermeta WHERE `meta_key` = "%s";' % ( self.db_name, meta_key  )
     meta_records = Mysql.ex( sql )
     users = []
     for meta in meta_records:
-      users.append( meta[2] )
+      users.append( self.getById( meta[1] ) )
     return users
-    
+
+  def getUserMeta( self, user_id ):
+    sql = 'SELECT * FROM `%s`.`usermeta` WHERE `user_id` = "%s" LIMIT 1;' % ( MVC.db['name'], user_id )
+    user_meta = Mysql.ex( sql )
+    meta_dict = {}
+    for meta in user_meta:
+      meta_dict[ meta[3] ]= meta[4]
+    return meta_dict
+
+
   def create( self, user_name, email, password ):
     data = {
       'user'  : user_name,
@@ -62,15 +76,7 @@ class ModelUser( object ):
     }
     Mysql.insert( 'usermeta', data )
 
-  def getUsersWithMeta( self, meta_key ):
-    sql = "SELECT * FROM %s.users WHERE `meta_key` = %s;" % ( self.db_name, meta_key  )
-    meta_records = Mysql.ex( sql )
-    users = []
-    for meta in meta_records:
-      users.append( meta )
 
-    print users
-    return users
 
   def updateUserMeta( self, user_id, meta_key, meta_value ):
     data = {

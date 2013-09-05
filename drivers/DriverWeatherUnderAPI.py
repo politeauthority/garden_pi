@@ -32,6 +32,9 @@ class DriverWeatherUnderAPI( object ):
     return results
 
   def fetch(self):
+    if( self.apikey == '' or self.zipcode == '' ):
+      print 'ERROR: Weather Underground requires a zipcode and apikey! '
+      return
     url = "http://api.wunderground.com/api/%s/conditions/q/%s.json" % ( self.apikey, self.zipcode )
     response = urllib.urlopen(url);
     data = json.loads(response.read())

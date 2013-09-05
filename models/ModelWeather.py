@@ -22,7 +22,7 @@ class ModelWeather( object ):
   def get_stats( self, seconds_back = 86400 ):
     from datetime import date, datetime, time, timedelta
     dt = datetime.now() - timedelta( seconds = seconds_back )
-    sql = "SELECT * FROM garden.weather WHERE `date` > '%s' ORDER BY `id` DESC;" % dt
+    sql = "SELECT * FROM %s.weather WHERE `date` > '%s' ORDER BY `id` DESC;" % ( MVC.db['name'], dt )
     stats = Mysql.ex( sql )
     return stats
   

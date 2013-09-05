@@ -6,15 +6,15 @@
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = new google.visualization.arrayToDataTable([
-          ['Date', 'Indoors', 'Outdoors', 'Danger-Low', 'Danger-High'],
-          {% for data in d['weather_stats'] %}
-            [ '{{ data[1] }}', {{ data[3] }}, {{ data[6] }}, 20, 60],
+          ['Date', 'Resevouir', 'Danger-Low', 'Danger-High'],
+          {% for data in d['water_stats'] %}
+            [ '{{ data[1] }}', {{ data[2] }}, 60, 80],
           {% endfor %}
         ]);
 
         var options = {
-          title: 'Humidity Indoor/Outdoor',
-          colors: [ 'green', 'brown', 'blue', 'red' ],
+          title: 'Resevouir Temperature',
+          colors: [ 'green', 'blue', 'red' ],
        };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));

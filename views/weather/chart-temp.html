@@ -8,7 +8,7 @@
         var data = new google.visualization.arrayToDataTable([
           ['Date', 'Indoors', 'Outdoors', 'Danger-Low', 'Danger-High'],
           {% for data in d['weather_stats'] %}
-            [ '{{ data[6] }}', {{ data[1] }}, {{ data[3] }}, 65, 85],
+            [ '{{ data[1] }}', {{ data[2] }}, {{ data[4] }}, 65, 85],
           {% endfor %}
         ]);
 

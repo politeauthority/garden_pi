@@ -88,10 +88,10 @@ if Settings.get_option( 'use-lighttiming' ):
 # Take what we have figured out and figure out if we need to notify anyone
 if use_alerts:
   message = False
-  if AlertModel.temp_high and float( current[1] ) >= float( AlertModel.temp_high ):
+  if AlertModel.temp_high and float( current[2] ) >= float( AlertModel.temp_high ):
     message = [ 'High Temp Alert!', 'The garden temperature indoor is currently %s F.' % current[1] ]
 
-  if AlertModel.temp_low and float( current[1] ) <= float( AlertModel.temp_low ):
+  if AlertModel.temp_low and float( current[2] ) <= float( AlertModel.temp_low ):
     message = [ 'Low Temp Alert!', 'The garden temperature indoor is currently %s F.' % current[1] ]
 
   if message:

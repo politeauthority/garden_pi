@@ -68,10 +68,19 @@ class Root:
   #Water Pages
 
   def water( self ):
-    test = 'something'
-    view = env.get_template('water.html')    
-    return view.render( )
+    view = env.get_template('water/index.html')
+    tpl_args = {}
+    return view.render( d = tpl_args )
   water.exposed = True
+
+  def chart_water_temp( self ):
+    WaterModel = MVC.loadModel('Water')
+    tpl_args = {
+      'water_stats'   : WaterModel.get_stats( )
+    }
+    view = env.get_template('water/chart-temp.html')
+    return view.render( d = tpl_args )
+  chart_water_temp.exposed = True
 
 
   #Settings Pages
@@ -106,10 +115,10 @@ root.weather             = Root().weather()
 root.chart_temp          = Root().chart_temp()
 root.chart_humidity      = Root().chart_humidity()
 root.water               = Root().water()
+root.chart_water_temp    = Root().chart_water_temp()
 root.settings            = Root().settings()
 root.settings_update     = Root().settings_update()
 root.settings_user_add   = Root().settings_user_add()
-print MVC.cherrypy_config
 cherrypy.quickstart(  Root(),  config = MVC.cherrypy_config )
 
 # End File: server.py

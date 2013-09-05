@@ -89,10 +89,10 @@ if Settings.get_option( 'use-lighttiming' ):
 if use_alerts:
   message = False
   if AlertModel.temp_high and float( current[2] ) >= float( AlertModel.temp_high ):
-    message = [ 'High Temp Alert!', 'The garden temperature indoor is currently %s F.' % current[1] ]
+    message = [ 'High Temp Alert!', 'The garden temperature indoor is currently %s F.' % current[2] ]
 
   if AlertModel.temp_low and float( current[2] ) <= float( AlertModel.temp_low ):
-    message = [ 'Low Temp Alert!', 'The garden temperature indoor is currently %s F.' % current[1] ]
+    message = [ 'Low Temp Alert!', 'The garden temperature indoor is currently %s F.' % current[2] ]
 
   if message:
     Logger.write('    [ALERT] %s' % message[0], message[1], 'cron' )    

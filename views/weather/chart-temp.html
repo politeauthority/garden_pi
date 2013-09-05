@@ -1,5 +1,8 @@
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/default.css">    
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
@@ -24,5 +27,19 @@
   </head>
   <body>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+    <div>
+      <h4>Time Frame</h4>
+      From
+      <select id="temp_timeframe">
+        <option>Now</option>
+      </select>
+      To
+      <select id="temp_timeframe_to">
+        <option>Last 24 hours</option>
+        <option>From Grow Start</option>
+     </select>
+    </div>
+
   </body>
 </html>

@@ -35,8 +35,9 @@ class DriverI2c( object ):
     sensors = [ 'water-temp', 'flow-rate' ]
     status = status.split('x')
     # water temp
+
     status[0] = Formula.celcius_to_fahrenheit( float( str( status[0][0:-1] ).replace(',','') + '.' + str( status[0][-1] ).replace(',','') )   )# Adjusted because the sensor doesnt put a decimal place in
-    
+
     status[1] = status[1].split('.')
     status[1] = str( status[1][0][0:-1] + '.' + status[1][0][-1] )
     return status

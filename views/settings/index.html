@@ -19,11 +19,26 @@
 
   <div class="span6">
     <h3>Users</h3>
-    {% for user in d['users'] %}
-      {{ user[0] }}, {{ user[1] }}
-    {% endfor %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Last Login</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in d['users'] %}
+          <tr>
+            <td> {{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+            <td></td>
+          </tr>
+        {% endfor %}
+      <tbody>
+    </table>
     <br />
-    Add User
+    <a class="garden-page" href="/settings_user_add">Add User</a>
   </div>
 
 </div>

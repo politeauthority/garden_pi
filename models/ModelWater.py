@@ -22,9 +22,10 @@ class ModelWater( object ):
     stats = Mysql.ex( sql )
     return stats
 
-  def store_info( self, temp_1 ):
+  def store_info( self, temp_1, flow_1 ):
     info = {
-      'water_temp_1'        : temp_1
+      'water_temp_1'        : temp_1,
+      'flow_1'              : flow_1,
     }
     Mysql.insert( 'water', info )
 

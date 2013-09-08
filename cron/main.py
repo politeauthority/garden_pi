@@ -56,7 +56,7 @@ if OutsideWeather and insideWeather:
 # @todo: do this through hardware.py --read=I2c-4
 sensor_readings = I2c.getStatus( 4 )
 if sensor_readings:
-  WaterModel.store_info( sensor_readings[0] )
+  WaterModel.store_info( sensor_readings[0], sensor_readings[1] )
 
 
 current = WeatherModel.get_current()

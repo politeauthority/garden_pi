@@ -49,7 +49,6 @@ class HelperACL( object ):
     roles = []
     if self.user_id:
       sql = "SELECT * FROM `%s`.`acl_user_roles` WHERE `userID` = '%s' ORDER BY `addDate` ASC;" % ( self.database, self.user_id )
-      print sql
       results = Mysql.ex( sql )
       for role in results:
         roles.append( role[1] )
